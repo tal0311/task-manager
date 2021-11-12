@@ -4,6 +4,7 @@ const app = express()
 const tasks = require('./routs/task')
 require('dotenv').config({ path: './.env' })
 const notFound = require('./middleware/notFound')
+const errorHandlerMiddleware = require('./middleware/error-handler')
 
 // MIDDLEWARE
 app.use(express.static('./public'))
@@ -13,7 +14,7 @@ app.use(express.json())
 app.use('/api/v1/tasks', tasks)
 
 app.use('*', notFound)
-
+app.use(errorHandlerMiddleware)
 // SERVER
 const port = 3000
 
