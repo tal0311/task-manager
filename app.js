@@ -3,12 +3,16 @@ const connectDB = require('./db/connect')
 const app = express()
 const tasks = require('./routs/task')
 require('dotenv').config({ path: './.env' })
+const notFound = require('./middleware/notFound')
 
 // MIDDLEWARE
 app.use(express.static('./public'))
 app.use(express.json())
 
+// ROUTS
 app.use('/api/v1/tasks', tasks)
+
+app.use('*', notFound)
 
 // SERVER
 const port = 3000
